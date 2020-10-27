@@ -8,12 +8,12 @@ class DeviceSerializer(serializers.ModelSerializer):
     device_type = serializers.CharField(source="get_device_type_display")
 
     class Meta:
-         model = Device
-         fields = [
+        model = Device
+        fields = [
             'name',
-            'device_type ',
+            'device_type',
             'address',
             'latitude',
             'longtitude',
             'cover_radius',
-         ]
+        ]
