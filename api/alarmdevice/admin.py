@@ -1,3 +1,16 @@
 from django.contrib import admin
 
-# Register your models here.
+from api.alarmdevice.models import Device
+
+@admin.register(Device)
+class DeviceAdmin(admin.ModelAdmin):
+    list_display = (
+        "id",
+        "name",
+        "device_type",
+        "address",
+        "latitude",
+        "longtitude",
+        "cover_radius",
+    )
+
