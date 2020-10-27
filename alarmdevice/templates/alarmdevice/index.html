@@ -1,0 +1,11 @@
+{% extends "alarmdevice/base.html" %}
+
+{% block content %}
+
+{% for device in devices %}
+  {{ device.name }}
+{% endfor %}
+
+{% include "alarmdevice/pagination.html" with page=devices %}
+
+{% endblock %}

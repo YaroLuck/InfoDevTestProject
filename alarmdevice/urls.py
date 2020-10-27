@@ -1,7 +1,8 @@
 from django.urls import include, path
 
-from .views import DeviceView
+from .views import DeviceView, MainPageView
 
 urlpatterns = [
-    path('', DeviceView.as_view()),
+    path('api/v1/device', DeviceView.as_view()),
+    path('', MainPageView.as_view(), name='MainPage'),
 ]
