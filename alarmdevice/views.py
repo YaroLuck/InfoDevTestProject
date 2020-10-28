@@ -1,11 +1,14 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
+from rest_framework.generics import ListAPIView
 
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
 from .models import Device
+from .pagination import StandardResultsSetPagination
 from .serializers import DeviceSerializer
 
 
@@ -33,3 +36,13 @@ class MainPageView(View):
                       'alarmdevice/index.html',
                       {'page': page,
                        'devices': devices})
+
+
+class DeviceListing(ListAPIView):
+    pagination_class = StandardResultsSetPagination
+    serializer_class = DeviceSerializer
+    queryset = Device.objects.all()
+
+
+def DeviceList(request):
+    return render(request, 'alarmdevice/device.html', {})
