@@ -48,12 +48,16 @@ class DeviceListing(ListAPIView):
         query_list = Device.objects.all()
         device_type = self.request.query_params.get('device_type', None)
         min_radius = self.request.query_params.get('min_radius', None)
+        max_radius = self.request.query_params.get('max_radius', None)
 
         if device_type:
             device_type_reverse = dict((v, k) for k, v in Device.DEVICES)
             query_list = query_list.filter(device_type=device_type_reverse[device_type])
         if min_radius:
             query_list = query_list.filter(cover_radius__gte=min_radius)
+        if max_radius:
+            query_list = query_list.filter(cover_radius__lte=max_radius)
+
         return query_list
 
 

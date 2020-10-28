@@ -11,9 +11,9 @@
 {% block content %}
     <section class="site_filter">
         <div class="container-fluid">
-            <div class="row">
+            <div class="row justify-content-center">
                 <div class="col-sm-2 col-2">
-                    <div class="form-group">
+                    <div class="form-group justify-content-center">
                         <label for="device_types">Тип устройства</label>
                         <select class="form-control" id="device_types" url = "{%url 'get_device_types' %}">
                         </select>
@@ -22,16 +22,32 @@
                 <div class="col-sm-2 col-2">
                     <div class="form-group">
                         <label>Радиус звукопокрытия</label>
-                        <small class="form-text text-muted">Минимальный радиус:</small>
-                        <input type="number" class="form-control" id="min_radius" placeholder="минимум">
-                        <small  class="form-text text-muted">Максимальный радиус</small>
-                        <input type="number" class="form-control" id="max_radius" placeholder="максимум">
+                        <input type="number" class="form-control" id="min_radius" placeholder="min" data-toggle="tooltip" data-placement="top" title="Минимальный радиус">
+                        <small class="form-text text-muted">минимальный радиус звукопокрытия</small>
+                        <hr>
+                        <input type="number" class="form-control" id="max_radius" placeholder="max" data-toggle="tooltip" data-placement="top" title="Максимальный радиус">
+                        <small class="form-text text-muted">максимальный радиус звукопокрытия</small>
                     </div>
                 </div>
-                <div class="col-sm-2 col-2">
-                    <div class="row justify-content-center align-self-center"
-                        style="color:white; margin-top:30px;">
-                        <a class="btn btn-secondary" id="display_all">Display all</a>
+                <div class="col-sm-4 col-2">
+                    <div class="form-group">
+                        <label>Попадание в прямоугольную область</label>
+                        <div class="row">
+                            <div class="col-xs-8 col-sm-6">
+                                <input type="number" class="form-control" step="0.000001" max="999" id="upper_left_x" placeholder="x">
+                                <small class="form-text text-muted">левая верхняя точка</small>
+                                <hr>
+                                <input type="number" class="form-control" step="0.000001" max="999" id="upper_left_y" placeholder="y">
+                                <small class="form-text text-muted">левая верхняя точка</small>
+                            </div>
+                            <div class="col-xs-4 col-sm-6">
+                                <input type="number" class="form-control" step="0.000001" max="999" id="bottom_right_x" placeholder="x">
+                                <small class="form-text text-muted">правая нижняя точка</small>
+                                <hr>
+                                <input type="number" class="form-control" step="0.000001" max="999" id="bottom_right_y" placeholder="y">
+                                <small class="form-text text-muted">правая нижняя точка</small>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
@@ -40,14 +56,14 @@
     <section>
         <div class="container-fluid">
             <div id = "result-count" class="text-right">
-                <span class='font-weight-bold'></span> results found.
+                <span class='font-weight-bold'></span> устройств найдено.
             </div>
             <div class="row properties_table justify-content-center">
                 <div id = "no_results">
                     <h5>No results found</h5>
                 </div>
-                <table class="table table-bordered table-responsive table-hover table-striped" id="list_data" data-toggle="table" url = "{% url 'listing' %}">
-                    <thead>
+                <table class="table table-striped table-bordered" id="list_data" data-toggle="table" url = "{% url 'listing' %}">
+                    <thead class="thead-dark">
                         <tr>
                             <th data-field="id">id</th>
                             <th data-field="name">Имя</th>
@@ -66,10 +82,10 @@
                 <nav aria-label="navigation">
                     <ul class="pagination">
                         <li class="page-item">
-                            <button class="btn btn-primary page-link" id="previous">Previous</button>
+                            <button class="btn btn-primary page-link" id="previous">Назад</button>
                         </li>
                         <li class="page-item pull-right">
-                            <button class="btn btn-primary page-link" id="next">Next</button>
+                            <button class="btn btn-primary page-link" id="next">Вперед</button>
                         </li>
                     </ul>
                 </nav>

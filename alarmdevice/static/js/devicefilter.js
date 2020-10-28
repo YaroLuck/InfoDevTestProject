@@ -34,6 +34,15 @@ $(document).ready(function () {
             send_data['min_radius'] = this.value;
         getAPIData();
     });
+    // фильтр по максимальному значению радиуса
+    $('#max_radius').on('change', function () {
+        // get the api data of updated variety
+        if(this.value == "all")
+            send_data['max_radius'] = "";
+        else
+            send_data['max_radius'] = this.value;
+        getAPIData();
+    });
 })
 
 function putTableData(result) {
@@ -57,7 +66,7 @@ function putTableData(result) {
     }
     else{
         // if no result found for the given filter, then display no result
-        $("#no_results h5").html("No results found");
+        $("#no_results h5").html("Устройств не найдено");
         $("#list_data").hide();
         $("#no_results").show();
     }
@@ -148,7 +157,7 @@ function getDeviceTypes() {
         url: url,
         data: {},
         success: function (result) {
-            device_types_option = "<option value='all' selected>All Types</option>";
+            device_types_option = "<option value='all' selected>Все типы</option>";
             $.each(result["device_types"], function (a, b) {
                 device_types_option += "<option>" + b + "</option>"
             });
