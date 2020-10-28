@@ -1,8 +1,31 @@
 var send_data = {}
 
 $(document).ready(function () {
-    // bring all the data without any filters
+    // все данные без фильтров
     getAPIData();
+    // получить список устройств
+    getDeviceTypes();
+
+        // on selecting the country option
+    $('#device_types').on('change', function () {
+        // since province and region is dependent
+        // on country select, emty all the options from select input
+        //$("#province").val("all");
+        //$("#region").val("all");
+        //send_data['province'] = '';
+        //send_data['region'] = '';
+
+        // update the selected country
+        if(this.value == "all")
+            send_data['device_type'] = "";
+        else
+            send_data['device_type'] = this.value;
+
+        //get province of selected country
+        //getProvince(this.value);
+        // get api data of updated filters
+        getAPIData();
+    });
 })
 
 function putTableData(result) {
@@ -109,3 +132,22 @@ $("#previous").click(function () {
         }
     });
 })
+
+function getDeviceTypes() {
+    let url = $("#device_types").attr("url");
+    $.ajax({
+        method: 'GET',
+        url: url,
+        data: {},
+        success: function (result) {
+            device_types_option = "<option value='all' selected>All Types</option>";
+            $.each(result["device_types"], function (a, b) {
+                device_types_option += "<option>" + b + "</option>"
+            });
+            $("#device_types").html(device_types_option)
+        },
+        error: function(response){
+            console.log(response)
+        }
+    });
+}

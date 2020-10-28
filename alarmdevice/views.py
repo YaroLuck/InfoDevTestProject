@@ -43,6 +43,31 @@ class DeviceListing(ListAPIView):
     serializer_class = DeviceSerializer
     queryset = Device.objects.all()
 
+    def get_queryset(self):
+        # фильтрация
+        query_list = Device.objects.all()
+        device_type = self.request.query_params.get('device_type', None)
 
-def DeviceList(request):
+        if device_type:
+            device_type_reverse = dict((v, k) for k, v in Device.DEVICES)
+            query_list = query_list.filter(device_type=device_type_reverse[device_type])
+
+        return query_list
+
+
+def device_list(request):
     return render(request, 'alarmdevice/device.html', {})
+
+
+def get_device_types(request):
+    if request.method == "GET" and request.is_ajax():
+        # device_types = Device.objects.\
+        #     order_by('device_type').\
+        #     values_list('device_type').\
+        #     distinct()
+        device_types = Device.DEVICES
+        device_types = [i[1] for i in list(device_types)]
+        data = {
+            "device_types": device_types,
+        }
+        return JsonResponse(data, status=200)

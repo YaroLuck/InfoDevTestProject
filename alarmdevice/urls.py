@@ -1,10 +1,11 @@
 from django.urls import include, path
 
-from .views import DeviceView, MainPageView, DeviceList, DeviceListing
+from .views import DeviceView, MainPageView, device_list, DeviceListing, get_device_types
 
 urlpatterns = [
     # path('api/v1/device', DeviceView.as_view()),
     # path('', MainPageView.as_view(), name='MainPage'),
-    path('', DeviceList),
+    path('', device_list),
     path('device_listing/', DeviceListing.as_view(), name='listing'),
+    path("ajax/types/", get_device_types, name='get_device_types'),
 ]
