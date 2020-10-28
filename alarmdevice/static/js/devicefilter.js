@@ -5,8 +5,7 @@ $(document).ready(function () {
     getAPIData();
     // получить список устройств
     getDeviceTypes();
-
-        // on selecting the country option
+    // выбор списка устройств
     $('#device_types').on('change', function () {
         // since province and region is dependent
         // on country select, emty all the options from select input
@@ -15,7 +14,7 @@ $(document).ready(function () {
         //send_data['province'] = '';
         //send_data['region'] = '';
 
-        // update the selected country
+        // обновить выбранные устройства
         if(this.value == "all")
             send_data['device_type'] = "";
         else
@@ -24,6 +23,15 @@ $(document).ready(function () {
         //get province of selected country
         //getProvince(this.value);
         // get api data of updated filters
+        getAPIData();
+    });
+    // фильтр по минимальному значению радиуса
+    $('#min_radius').on('change', function () {
+        // get the api data of updated variety
+        if(this.value == "all")
+            send_data['min_radius'] = "";
+        else
+            send_data['min_radius'] = this.value;
         getAPIData();
     });
 })
