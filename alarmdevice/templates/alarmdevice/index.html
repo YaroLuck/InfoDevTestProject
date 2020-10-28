@@ -1,7 +1,16 @@
 {% extends "alarmdevice/base.html" %}
 
+{% load static %}
+
 {% block content %}
-<table class="table table-bordered">
+<!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по имени или адресу устройства">-->
+<form>
+  <div class="form-group">
+    <label for="myInput">Полнотекстовый поиск</label>
+    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Поиск по имени или адресу устройства">
+  </div>
+</form>
+<table class="table table-bordered" id="myTable">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
@@ -27,6 +36,7 @@
   {% endfor %}
   </tbody>
 </table>
-  {% include "alarmdevice/pagination.html" with page=devices %}
+<script type="text/javascript" src={% static "js/main.js" %}></script>
+{% include "alarmdevice/pagination.html" with page=devices %}
 
 {% endblock %}
