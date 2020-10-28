@@ -1,7 +1,14 @@
 {% extends "alarmdevice/base.html" %}
 
 {% block content %}
-<table class="table table-bordered">
+<!--<input type="text" id="myInput" onkeyup="myFunction()" placeholder="Поиск по имени или адресу устройства">-->
+<form>
+  <div class="form-group">
+    <label for="myInput">Полнотекстовый поиск</label>
+    <input type="text" class="form-control" id="myInput" onkeyup="myFunction()" placeholder="Поиск по имени или адресу устройства">
+  </div>
+</form>
+<table class="table table-bordered" id="myTable">
   <thead class="thead-inverse">
     <tr>
       <th>id</th>
@@ -27,6 +34,27 @@
   {% endfor %}
   </tbody>
 </table>
+<script>
+function myFunction() {
+  var input, filter, table, tr, td, i, txtValue;
+  input = document.getElementById("myInput");
+  filter = input.value.toUpperCase();
+  table = document.getElementById("myTable");
+  tr = table.getElementsByTagName("tr");
+  for (i = 0; i < tr.length; i++) {
+    td1 = tr[i].getElementsByTagName("td")[1];
+    td2 = tr[i].getElementsByTagName("td")[2]
+    if (td1 || td2) {
+      txtValue = td1.textContent || td1.innerText;
+      if (txtValue.toUpperCase().indexOf(filter) > -1) {
+        tr[i].style.display = "";
+      } else {
+        tr[i].style.display = "none";
+      }
+    }
+  }
+}
+</script>
   {% include "alarmdevice/pagination.html" with page=devices %}
 
 {% endblock %}
