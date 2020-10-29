@@ -8,6 +8,8 @@ verify_ssl = true
 [packages]
 django = "*"
 djangorestframework = "*"
+drf-yasg = "*"
+djangorestframework-word-filter = "*"
 
 [requires]
 python_version = "3.8"

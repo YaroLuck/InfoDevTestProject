@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from api.alarmdevice.models import Device
+from alarmdevice.models import Device
 
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
