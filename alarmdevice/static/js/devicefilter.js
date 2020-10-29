@@ -123,6 +123,17 @@ $(document).ready(function () {
         }
         getAPIData();
     });
+    // поиск по имени и адресу
+    $("#search_button").click(function(){
+        var search_name_address = $('#search_name_address').val();
+        if (search_name_address == ""){
+            send_data['search_name_address'] = "";
+        }
+        else{
+            send_data['search_name_address'] = "2";
+        }
+        getAPIData();
+    });
 })
 
 function putTableData(result) {

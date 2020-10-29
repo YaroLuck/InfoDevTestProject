@@ -1,6 +1,6 @@
 from django.urls import include, path
 
-from .views import DeviceView, MainPageView, device_list, DeviceListing, get_device_types
+from .views import device_list, DeviceListing, get_device_types
 
 urlpatterns = [
     # path('api/v1/device', DeviceView.as_view()),

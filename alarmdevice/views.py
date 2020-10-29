@@ -1,44 +1,44 @@
-from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
-from django.views.generic import View
+# from django.views.generic import View
 from rest_framework.generics import ListAPIView
 
-from rest_framework.response import Response
-from rest_framework.views import APIView
+# from rest_framework.response import Response
+# from rest_framework.views import APIView
 
 from .models import Device
 from .pagination import StandardResultsSetPagination
 from .serializers import DeviceSerializer
 
 
-class DeviceView(APIView):
-    """Список всех устройств АПИ"""
+# class DeviceView(APIView):
+#     """Список всех устройств АПИ"""
+#
+#     def get(self, request):
+#         devices = Device.objects.all()
+#         serializer = DeviceSerializer(devices, many=True)
+#         return Response({"devices": serializer.data})
 
-    def get(self, request):
-        devices = Device.objects.all()
-        serializer = DeviceSerializer(devices, many=True)
-        return Response({"devices": serializer.data})
 
-
-class MainPageView(View):
-    """Список всех устройств"""
-
-    def get(self, request):
-        device_list = Device.objects.all()
-        paginator = Paginator(device_list, 3)
-        page = request.GET.get('page')
-        try:
-            devices = paginator.page(page)
-        except PageNotAnInteger:
-            devices = paginator.page(1)
-        except EmptyPage:
-            devices = paginator.page(paginator.num_pages)
-        return render(request,
-                      'alarmdevice/index.html',
-                      {'page': page,
-                       'devices': devices})
+# class MainPageView(View):
+#     """Список всех устройств"""
+#
+#     def get(self, request):
+#         device_list = Device.objects.all()
+#         paginator = Paginator(device_list, 3)
+#         page = request.GET.get('page')
+#         try:
+#             devices = paginator.page(page)
+#         except PageNotAnInteger:
+#             devices = paginator.page(1)
+#         except EmptyPage:
+#             devices = paginator.page(paginator.num_pages)
+#         return render(request,
+#                       'alarmdevice/index.html',
+#                       {'page': page,
+#                        'devices': devices})
 
 
 class DeviceListing(ListAPIView):
@@ -56,6 +56,7 @@ class DeviceListing(ListAPIView):
         upper_left_y = self.request.query_params.get('upper_left_y', None)
         bottom_right_x = self.request.query_params.get('bottom_right_x', None)
         bottom_right_y = self.request.query_params.get('bottom_right_y', None)
+        search_name_address = self.request.query_params.get('search_name_address', None)
 
         if device_type:
             device_type_reverse = dict((v, k) for k, v in Device.DEVICES)
@@ -65,10 +66,16 @@ class DeviceListing(ListAPIView):
         if max_radius:
             query_list = query_list.filter(cover_radius__lte=max_radius)
         if upper_left_x and upper_left_y and bottom_right_x and bottom_right_y:
-            query_list = query_list.filter(longtitude__gte=upper_left_x).\
-                filter(longtitude__lte=bottom_right_x).\
-                filter(latitude__gte=bottom_right_y).\
+            query_list = query_list.filter(longtitude__gte=upper_left_x). \
+                filter(longtitude__lte=bottom_right_x). \
+                filter(latitude__gte=bottom_right_y). \
                 filter(latitude__lte=upper_left_y)
+        if search_name_address:
+            # query_list.filter(
+            #     Q(name__contains=search_name_address) |
+            #     Q(address__contains=search_name_address)
+            # )
+            query_list.filter(name__contains=search_name_address)
 
         return query_list
 
