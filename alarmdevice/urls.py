@@ -1,6 +1,8 @@
-from django.urls import include, path
+"""Маршрутизация уровня приложения alarmdevice."""
 
-from .views import DeviceListing, get_device_types, DeviceListView
+from django.urls import path
+
+from .views import DeviceListView, DeviceListing, get_device_types
 
 urlpatterns = [
     path('', DeviceListView.as_view()),

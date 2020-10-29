@@ -1,3 +1,5 @@
+"""Представления."""
+
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.generic import ListView
@@ -10,19 +12,21 @@ from .serializers import DeviceSerializer
 
 
 class DeviceListView(ListView):
-    """Вывод шаблона для списка устройств"""
+    """Вывод шаблона для списка устройств."""
+
     queryset = Device.objects.all()
     template_name = 'alarmdevice/device.html'
 
 
 class DeviceListing(ListAPIView):
-    """Api для списка устройств"""
+    """Api для списка устройств."""
+
     pagination_class = StandardResultsSetPagination
     serializer_class = DeviceSerializer
     queryset = Device.objects.all()
 
     def get_queryset(self):
-        # фильтрация
+        """фильтрация."""
         query_list = Device.objects.all()
         device_type = self.request.query_params.get('device_type', None)
         min_radius = self.request.query_params.get('min_radius', None)
@@ -31,11 +35,14 @@ class DeviceListing(ListAPIView):
         upper_left_y = self.request.query_params.get('upper_left_y', None)
         bottom_right_x = self.request.query_params.get('bottom_right_x', None)
         bottom_right_y = self.request.query_params.get('bottom_right_y', None)
-        search_name_address = self.request.query_params.get('search_name_address', None)
+        search_name_address = self.request.query_params.get(
+            'search_name_address', None)
 
         if device_type:
             device_type_reverse = dict((v, k) for k, v in Device.DEVICES)
-            query_list = query_list.filter(device_type=device_type_reverse[device_type])
+            query_list = query_list.filter(
+                device_type=device_type_reverse[device_type]
+            )
         if min_radius:
             query_list = query_list.filter(cover_radius__gte=min_radius)
         if max_radius:
@@ -55,7 +62,7 @@ class DeviceListing(ListAPIView):
 
 
 def get_device_types(request):
-    """список доступных типов устройств"""
+    """список доступных типов устройств."""
     if request.method == "GET" and request.is_ajax():
         device_types = Device.DEVICES
         device_types = [i[1] for i in list(device_types)]

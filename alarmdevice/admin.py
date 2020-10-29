@@ -1,9 +1,14 @@
-from django.contrib import admin
+"""alarmdevice/admin.py."""
 
 from alarmdevice.models import Device
 
+from django.contrib import admin
+
+
 @admin.register(Device)
 class DeviceAdmin(admin.ModelAdmin):
+    """Админка."""
+
     list_display = (
         "id",
         "name",
@@ -13,4 +18,3 @@ class DeviceAdmin(admin.ModelAdmin):
         "longtitude",
         "cover_radius",
     )
-
