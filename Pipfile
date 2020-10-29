@@ -9,7 +9,6 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 drf-yasg = "*"
-djangorestframework-word-filter = "*"
 
 [requires]
 python_version = "3.8"
