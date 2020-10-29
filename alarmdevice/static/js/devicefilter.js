@@ -43,6 +43,86 @@ $(document).ready(function () {
             send_data['max_radius'] = this.value;
         getAPIData();
     });
+    //upper_left_x
+    $('#upper_left_x').on('change', function () {
+        var u_l_x = $('#upper_left_x').val();
+        var u_l_y = $('#upper_left_y').val();
+        var b_r_x = $('#bottom_right_x').val();
+        var b_r_y = $('#bottom_right_y').val();
+        if(u_l_x.trim() && u_l_y.trim() && b_r_x.trim() && b_r_y.trim()){
+            send_data['upper_left_x'] = u_l_x;
+            send_data['upper_left_y'] = u_l_y;
+            send_data['bottom_right_x'] = b_r_x;
+            send_data['bottom_right_y'] = b_r_y;
+        }
+        else if(this.value == ""){
+            send_data['upper_left_x'] = "";
+            send_data['upper_left_y'] = "";
+            send_data['bottom_right_x'] = "";
+            send_data['bottom_right_y'] = "";
+        }
+        getAPIData();
+    });
+    //upper_left_y
+    $('#upper_left_y').on('change', function () {
+        var u_l_x = $('#upper_left_x').val();
+        var u_l_y = $('#upper_left_y').val();
+        var b_r_x = $('#bottom_right_x').val();
+        var b_r_y = $('#bottom_right_y').val();
+        if(u_l_x.trim() && u_l_y.trim() && b_r_x.trim() && b_r_y.trim()){
+            send_data['upper_left_x'] = u_l_x;
+            send_data['upper_left_y'] = u_l_y;
+            send_data['bottom_right_x'] = b_r_x;
+            send_data['bottom_right_y'] = b_r_y;
+        }
+        else if(this.value == ""){
+            send_data['upper_left_x'] = "";
+            send_data['upper_left_y'] = "";
+            send_data['bottom_right_x'] = "";
+            send_data['bottom_right_y'] = "";
+        }
+        getAPIData();
+    });
+    //bottom_right_x
+    $('#bottom_right_x').on('change', function () {
+        var u_l_x = $('#upper_left_x').val();
+        var u_l_y = $('#upper_left_y').val();
+        var b_r_x = $('#bottom_right_x').val();
+        var b_r_y = $('#bottom_right_y').val();
+        if(u_l_x.trim() && u_l_y.trim() && b_r_x.trim() && b_r_y.trim()){
+            send_data['upper_left_x'] = u_l_x;
+            send_data['upper_left_y'] = u_l_y;
+            send_data['bottom_right_x'] = b_r_x;
+            send_data['bottom_right_y'] = b_r_y;
+        }
+        else if(this.value == ""){
+            send_data['upper_left_x'] = "";
+            send_data['upper_left_y'] = "";
+            send_data['bottom_right_x'] = "";
+            send_data['bottom_right_y'] = "";
+        }
+        getAPIData();
+    });
+    //bottom_right_y
+    $('#bottom_right_y').on('change', function () {
+        var u_l_x = $('#upper_left_x').val();
+        var u_l_y = $('#upper_left_y').val();
+        var b_r_x = $('#bottom_right_x').val();
+        var b_r_y = $('#bottom_right_y').val();
+        if(u_l_x.trim() && u_l_y.trim() && b_r_x.trim() && b_r_y.trim()){
+            send_data['upper_left_x'] = u_l_x;
+            send_data['upper_left_y'] = u_l_y;
+            send_data['bottom_right_x'] = b_r_x;
+            send_data['bottom_right_y'] = b_r_y;
+        }
+        else if(this.value == ""){
+            send_data['upper_left_x'] = "";
+            send_data['upper_left_y'] = "";
+            send_data['bottom_right_x'] = "";
+            send_data['bottom_right_y'] = "";
+        }
+        getAPIData();
+    });
 })
 
 function putTableData(result) {
@@ -65,7 +145,7 @@ function putTableData(result) {
         });
     }
     else{
-        // if no result found for the given filter, then display no result
+        // если резултата нет - показать нет устройств
         $("#no_results h5").html("Устройств не найдено");
         $("#list_data").hide();
         $("#no_results").show();
@@ -91,7 +171,7 @@ function putTableData(result) {
     // setting the url
     $("#previous").attr("url", result["previous"]);
     $("#next").attr("url", result["next"]);
-    // displaying result count
+    // подсчет количества устройств
     $("#result-count span").html(result["count"]);
 }
 
