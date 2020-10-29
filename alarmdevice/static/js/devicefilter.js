@@ -130,7 +130,16 @@ $(document).ready(function () {
             send_data['search_name_address'] = "";
         }
         else{
-            send_data['search_name_address'] = "2";
+            send_data['search_name_address'] = search_name_address;
+        }
+        getAPIData();
+    });
+    $("#search_name_address").on('change', function (){
+        if (this.value == ""){
+            send_data['search_name_address'] = "";
+        }
+        else{
+            send_data['search_name_address'] = search_name_address;
         }
         getAPIData();
     });

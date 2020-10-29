@@ -1,47 +1,22 @@
-# from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
 from django.db.models import Q
 from django.http import JsonResponse
-from django.shortcuts import render
-# from django.views.generic import View
-from rest_framework.generics import ListAPIView
+from django.views.generic import ListView
 
-# from rest_framework.response import Response
-# from rest_framework.views import APIView
+from rest_framework.generics import ListAPIView
 
 from .models import Device
 from .pagination import StandardResultsSetPagination
 from .serializers import DeviceSerializer
 
 
-# class DeviceView(APIView):
-#     """Список всех устройств АПИ"""
-#
-#     def get(self, request):
-#         devices = Device.objects.all()
-#         serializer = DeviceSerializer(devices, many=True)
-#         return Response({"devices": serializer.data})
-
-
-# class MainPageView(View):
-#     """Список всех устройств"""
-#
-#     def get(self, request):
-#         device_list = Device.objects.all()
-#         paginator = Paginator(device_list, 3)
-#         page = request.GET.get('page')
-#         try:
-#             devices = paginator.page(page)
-#         except PageNotAnInteger:
-#             devices = paginator.page(1)
-#         except EmptyPage:
-#             devices = paginator.page(paginator.num_pages)
-#         return render(request,
-#                       'alarmdevice/index.html',
-#                       {'page': page,
-#                        'devices': devices})
+class DeviceListView(ListView):
+    """Вывод шаблона для списка устройств"""
+    queryset = Device.objects.all()
+    template_name = 'alarmdevice/device.html'
 
 
 class DeviceListing(ListAPIView):
+    """Api для списка устройств"""
     pagination_class = StandardResultsSetPagination
     serializer_class = DeviceSerializer
     queryset = Device.objects.all()
@@ -71,25 +46,17 @@ class DeviceListing(ListAPIView):
                 filter(latitude__gte=bottom_right_y). \
                 filter(latitude__lte=upper_left_y)
         if search_name_address:
-            # query_list.filter(
-            #     Q(name__contains=search_name_address) |
-            #     Q(address__contains=search_name_address)
-            # )
-            query_list.filter(name__contains=search_name_address)
+            query_list = query_list.filter(
+                Q(name__contains=search_name_address) |
+                Q(address__contains=search_name_address)
+            )
 
         return query_list
 
 
-def device_list(request):
-    return render(request, 'alarmdevice/device.html', {})
-
-
 def get_device_types(request):
+    """список доступных типов устройств"""
     if request.method == "GET" and request.is_ajax():
-        # device_types = Device.objects.\
-        #     order_by('device_type').\
-        #     values_list('device_type').\
-        #     distinct()
         device_types = Device.DEVICES
         device_types = [i[1] for i in list(device_types)]
         data = {
