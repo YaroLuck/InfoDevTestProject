@@ -1,10 +1,11 @@
+"""Модели приложения alarmdevice."""
+
 from django.db import models
 
 
 class Device(models.Model):
-    """
-    Устройство оповещения
-    """
+    """Устройство оповещения."""
+
     SIREN = 'siren'
     SPEAKER = 'speaker'
     DEVICES = (
@@ -41,8 +42,11 @@ class Device(models.Model):
     )
 
     class Meta:
+        """Meta клаасс."""
+
         verbose_name = "Устройство"
         verbose_name_plural = "Устройства"
 
     def __str__(self):
+        """Удобочитаемый вид."""
         return self.name
