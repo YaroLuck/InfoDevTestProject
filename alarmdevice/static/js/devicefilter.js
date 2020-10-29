@@ -7,22 +7,11 @@ $(document).ready(function () {
     getDeviceTypes();
     // выбор списка устройств
     $('#device_types').on('change', function () {
-        // since province and region is dependent
-        // on country select, emty all the options from select input
-        //$("#province").val("all");
-        //$("#region").val("all");
-        //send_data['province'] = '';
-        //send_data['region'] = '';
-
         // обновить выбранные устройства
         if(this.value == "all")
             send_data['device_type'] = "";
         else
             send_data['device_type'] = this.value;
-
-        //get province of selected country
-        //getProvince(this.value);
-        // get api data of updated filters
         getAPIData();
     });
     // фильтр по минимальному значению радиуса
@@ -146,8 +135,7 @@ $(document).ready(function () {
 })
 
 function putTableData(result) {
-    // creating table row for each result and
-    // pushing to the html cntent of table body of listing table
+    // создание строки для каждого результата
     let row;
     if(result["results"].length > 0){
         $("#no_results").hide();
@@ -170,10 +158,8 @@ function putTableData(result) {
         $("#list_data").hide();
         $("#no_results").show();
     }
-    // setting previous and next page url for the given result
     let prev_url = result["previous"];
     let next_url = result["next"];
-    // disabling-enabling button depending on existence of next/prev page.
     if (prev_url === null) {
         $("#previous").addClass("disabled");
         $("#previous").prop('disabled', true);
@@ -188,7 +174,6 @@ function putTableData(result) {
         $("#next").removeClass("disabled");
         $("#next").prop('disabled', false);
     }
-    // setting the url
     $("#previous").attr("url", result["previous"]);
     $("#next").attr("url", result["next"]);
     // подсчет количества устройств
