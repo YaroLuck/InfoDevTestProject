@@ -1,4 +1,5 @@
 from django.core.paginator import Paginator, PageNotAnInteger, EmptyPage
+from django.db.models import Q
 from django.http import JsonResponse
 from django.shortcuts import render
 from django.views.generic import View
@@ -14,6 +15,7 @@ from .serializers import DeviceSerializer
 
 class DeviceView(APIView):
     """Список всех устройств АПИ"""
+
     def get(self, request):
         devices = Device.objects.all()
         serializer = DeviceSerializer(devices, many=True)
@@ -22,6 +24,7 @@ class DeviceView(APIView):
 
 class MainPageView(View):
     """Список всех устройств"""
+
     def get(self, request):
         device_list = Device.objects.all()
         paginator = Paginator(device_list, 3)
@@ -49,6 +52,10 @@ class DeviceListing(ListAPIView):
         device_type = self.request.query_params.get('device_type', None)
         min_radius = self.request.query_params.get('min_radius', None)
         max_radius = self.request.query_params.get('max_radius', None)
+        upper_left_x = self.request.query_params.get('upper_left_x', None)
+        upper_left_y = self.request.query_params.get('upper_left_y', None)
+        bottom_right_x = self.request.query_params.get('bottom_right_x', None)
+        bottom_right_y = self.request.query_params.get('bottom_right_y', None)
 
         if device_type:
             device_type_reverse = dict((v, k) for k, v in Device.DEVICES)
@@ -57,6 +64,11 @@ class DeviceListing(ListAPIView):
             query_list = query_list.filter(cover_radius__gte=min_radius)
         if max_radius:
             query_list = query_list.filter(cover_radius__lte=max_radius)
+        if upper_left_x and upper_left_y and bottom_right_x and bottom_right_y:
+            query_list = query_list.filter(longtitude__gte=upper_left_x).\
+                filter(longtitude__lte=bottom_right_x).\
+                filter(latitude__gte=bottom_right_y).\
+                filter(latitude__lte=upper_left_y)
 
         return query_list
 
