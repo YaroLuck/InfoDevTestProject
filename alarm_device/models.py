@@ -50,3 +50,7 @@ class Device(models.Model):
     def __str__(self):
         """Удобочитаемый вид."""
         return self.name
+
+    def __repr__(self):
+        """Для отладки."""
+        return self.name
