@@ -15,7 +15,7 @@ class DeviceListView(ListView):
     """Вывод шаблона для списка устройств."""
 
     queryset = Device.objects.all()
-    template_name = 'alarmdevice/device.html'
+    template_name = 'alarm_device/device.html'
 
 
 class DeviceListing(ListAPIView):
