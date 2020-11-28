@@ -1,6 +1,6 @@
-"""alarmdevice/admin.py."""
+"""alarm_device/admin.py."""
 
-from alarmdevice.models import Device
+from alarm_device.models import Device
 
 from django.contrib import admin
 

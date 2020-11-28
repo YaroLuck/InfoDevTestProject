@@ -6,7 +6,7 @@ from django.db import migrations
 class Migration(migrations.Migration):
 
     dependencies = [
-        ('alarmdevice', '0001_initial'),
+        ('alarm_device', '0001_initial'),
     ]
 
     operations = [

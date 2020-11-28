@@ -7,5 +7,5 @@ from .yasg import urlpatterns as doc_urls
 
 urlpatterns = [
     path('admin/', admin.site.urls),
-    path('', include('alarmdevice.urls'))
+    path('', include('alarm_device.urls'))
 ] + doc_urls

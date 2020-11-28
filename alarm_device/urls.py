@@ -1,4 +1,4 @@
-"""Маршрутизация уровня приложения alarmdevice."""
+"""Маршрутизация уровня приложения alarm_device."""
 
 from django.urls import path
 
