@@ -11,11 +11,24 @@ class DeviceFilter(django_filters.FilterSet):
                                                   lookup_expr='gte')
     cover_radius_lt = django_filters.NumberFilter(field_name='cover_radius',
                                                   lookup_expr='lte')
+    longtitude_gt = django_filters.NumberFilter(field_name='longtitude',
+                                                lookup_expr='gte')
+    longtitude_lt = django_filters.NumberFilter(field_name='longtitude',
+                                                lookup_expr='lte')
+    latitude_gt = django_filters.NumberFilter(field_name='latitude',
+                                              lookup_expr='gte')
+    latitude_lt = django_filters.NumberFilter(field_name='latitude',
+                                              lookup_expr='lte')
+
 
     class Meta:
         model = Device
         fields = [
             'device_type',
             'cover_radius_gt',
-            'cover_radius_lt'
+            'cover_radius_lt',
+            'longtitude_gt',
+            'longtitude_lt',
+            'latitude_gt',
+            'latitude_lt',
         ]

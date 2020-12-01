@@ -7,6 +7,7 @@ from django_filters.rest_framework import DjangoFilterBackend
 from rest_framework.filters import SearchFilter
 
 from rest_framework.generics import ListAPIView
+from rest_framework.viewsets import ReadOnlyModelViewSet
 
 from .filters import DeviceFilter
 from .models import Device
@@ -86,9 +87,22 @@ def get_device_types(request):
 
 
 class DeviceApiView(ListAPIView):
+
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = DeviceFilter
     search_fields = ['name', 'address']
+
+
+class DeviceViewSet(ReadOnlyModelViewSet):
+
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    pagination_class = StandardResultsSetPagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_class = DeviceFilter
+    search_fields = ['name', 'address']
+
+
