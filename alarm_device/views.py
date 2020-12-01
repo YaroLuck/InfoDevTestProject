@@ -3,12 +3,24 @@
 from django.db.models import Q
 from django.http import JsonResponse
 from django.views.generic import ListView
+from django_filters.rest_framework import DjangoFilterBackend
+from rest_framework.filters import SearchFilter
 
 from rest_framework.generics import ListAPIView
 
+from .filters import DeviceFilter
 from .models import Device
 from .pagination import StandardResultsSetPagination
 from .serializers import DeviceSerializer
+
+
+class GenerateView(ListView):
+    """Генерирующий стартовую страницу вью"""
+
+    model = Device
+    template_name = 'alarm_device/home.html'
+    paginate_by = 3
+    context_object_name = 'devices'
 
 
 class DeviceListView(ListView):
@@ -48,10 +60,11 @@ class DeviceListing(ListAPIView):
         if max_radius:
             query_list = query_list.filter(cover_radius__lte=max_radius)
         if upper_left_x and upper_left_y and bottom_right_x and bottom_right_y:
-            query_list = query_list.filter(longtitude__gte=upper_left_x). \
-                filter(longtitude__lte=bottom_right_x). \
-                filter(latitude__gte=bottom_right_y). \
-                filter(latitude__lte=upper_left_y)
+            query_list = query_list.filter(
+                longtitude__gte=upper_left_x,
+                longtitude__lte=bottom_right_x,
+                latitude__gte=bottom_right_y,
+                latitude__lte=upper_left_y,)
         if search_name_address:
             query_list = query_list.filter(
                 Q(name__contains=search_name_address) |
@@ -70,3 +83,13 @@ def get_device_types(request):
             "device_types": device_types,
         }
         return JsonResponse(data, status=200)
+
+
+class DeviceApiView(ListAPIView):
+    queryset = Device.objects.all()
+    serializer_class = DeviceSerializer
+    paginate_by = 3
+    # pagination_class = DevicePagination
+    filter_backends = [DjangoFilterBackend, SearchFilter]
+    filterset_class = DeviceFilter
+    search_fields = ['name', 'address']

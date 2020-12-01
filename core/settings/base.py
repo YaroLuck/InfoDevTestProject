@@ -22,6 +22,7 @@ THIRD_PARTY_APPS = [
     'rest_framework',
     'drf_yasg',
     'bootstrap4',
+    'django_filters',
 ]
 
 LOCAL_APPS = [
@@ -58,6 +59,10 @@ TEMPLATES = [
     },
 ]
 
+BASE_URL = os.getenv('BASE_URL',
+                     'http://localhost:8000')
+
+
 WSGI_APPLICATION = 'core.wsgi.application'
 
 REST_FRAMEWORK = {
@@ -86,7 +91,7 @@ AUTH_PASSWORD_VALIDATORS = [
     },
 ]
 
-LANGUAGE_CODE = 'en-us'
+LANGUAGE_CODE = 'ru'
 
 TIME_ZONE = 'UTC'
 

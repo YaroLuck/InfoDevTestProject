@@ -20,7 +20,6 @@ class Device(models.Model):
         "Тип устройства",
         max_length=50,
         choices=DEVICES,
-        default='siren',
     )
     address = models.CharField(
         "Адрес",
