@@ -88,7 +88,6 @@ def get_device_types(request):
 class DeviceApiView(ListAPIView):
     queryset = Device.objects.all()
     serializer_class = DeviceSerializer
-    # paginate_by = 3
     pagination_class = StandardResultsSetPagination
     filter_backends = [DjangoFilterBackend, SearchFilter]
     filterset_class = DeviceFilter
