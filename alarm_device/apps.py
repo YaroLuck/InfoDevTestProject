@@ -1,4 +1,4 @@
-"""alarmdevice/apps.py ."""
+"""alarm_device/apps.py ."""
 
 from django.apps import AppConfig
 
@@ -6,4 +6,4 @@ from django.apps import AppConfig
 class AlarmdeviceConfig(AppConfig):
     """Устройства оповещения."""
 
-    name = 'alarmdevice'
+    name = 'alarm_device'

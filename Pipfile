@@ -9,6 +9,8 @@ verify_ssl = true
 django = "*"
 djangorestframework = "*"
 drf-yasg = "*"
+django-bootstrap4 = "*"
+django-filter = "*"
 
 [requires]
 python_version = "3.8"
