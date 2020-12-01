@@ -20,7 +20,6 @@ class DeviceFilter(django_filters.FilterSet):
     latitude_lt = django_filters.NumberFilter(field_name='latitude',
                                               lookup_expr='lte')
 
-
     class Meta:
         model = Device
         fields = [
