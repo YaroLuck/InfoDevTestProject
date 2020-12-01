@@ -17,7 +17,6 @@ class GenerateView(ListView):
 
     model = Device
     template_name = 'alarm_device/home.html'
-    paginate_by = 3
     context_object_name = 'devices'
 
 

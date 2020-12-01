@@ -1,12 +1,7 @@
 {% extends "alarm_device/base.html" %}
 {% load static %}
 {% block style %}
-    <style type="text/css">
-    .properties_table{
-    min-height: 540px;
-    font-size: 14px;
-    }
-    </style>
+    <link rel="stylesheet" type="text/css" href="{% static 'alarm_device/css/style.css' %}"/>
 {% endblock %}
 {% block content %}
     <section class="site_filter">
