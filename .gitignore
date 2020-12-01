@@ -151,4 +151,3 @@ pnpm-debug.log*
 *.sw?
 
 media/
-alarm_device/static/
