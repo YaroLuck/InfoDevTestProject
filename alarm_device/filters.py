@@ -5,6 +5,8 @@ from alarm_device.models import Device
 
 
 class DeviceFilter(django_filters.FilterSet):
+    """Фильтры."""
+    
     device_type = django_filters.ChoiceFilter(choices=Device.DEVICES,
                                               empty_label=ugettext_lazy(u'Все типы'))
     cover_radius_gt = django_filters.NumberFilter(field_name='cover_radius',
